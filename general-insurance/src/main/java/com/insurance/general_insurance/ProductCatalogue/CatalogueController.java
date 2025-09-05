@@ -15,19 +15,57 @@ import java.util.List;
 @RequestMapping("/catalogue") // URL path for the catalogue module
 public class CatalogueController {
 
+	
     private final CatalogueService catalogueService;
+	
+    @Autowired
+    private final PolicyService policyService;
 
     @Autowired
     public CatalogueController(CatalogueService catalogueService) {
         this.catalogueService = catalogueService;
+		this.policyService = new PolicyService();
     }
-
-    // Admin: View all policies in the catalogue (admin sees all policies)
+    
+    
+    // CRUD ADMIN ONLY
+    @PostMapping("/add") // working
+    public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
+        Policy newPolicy = catalogueService.addPolicy(policy);
+        return new ResponseEntity<>(newPolicy, HttpStatus.CREATED);
+    }
+    
+    @PutMapping("/update/{policyId}") // This is also working
+    public ResponseEntity<Policy> updatePolicy(@PathVariable Long policyId, @RequestBody Policy updatedPolicy) {
+        Policy policy = policyService.updatePolicy(policyId, updatedPolicy);
+        return new ResponseEntity<>(policy, HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/remove/{policyId}") // working
+    public ResponseEntity<Void> removePolicy(@PathVariable Long policyId) {
+        catalogueService.removePolicy(policyId);
+        return ResponseEntity.noContent().build();
+    }
+    
+    
+    
+    // Operations allowed for Admin n=and users.
+    
+    
+    
+    
     @GetMapping("/list") // This is working
     public ResponseEntity<List<Policy>> getAllPolicies() {
         List<Policy> policies = catalogueService.getAllPolicies();
         return new ResponseEntity<>(policies, HttpStatus.OK);
     }
+    
+    @GetMapping("/{policyId}") // working
+    public ResponseEntity<Policy> getPolicyDetails(@PathVariable Long policyId) {
+        Policy policy = catalogueService.getPolicyDetails(policyId);
+        return new ResponseEntity<>(policy, HttpStatus.OK);
+    }  
+    
 
     // Admin: Filter and search policies based on type, coverage, price, etc.
     @GetMapping("/filter") // Working
@@ -39,24 +77,8 @@ public class CatalogueController {
         return new ResponseEntity<>(policies, HttpStatus.OK);
     }
 
-    // User: View details of a specific policy (Read-only for users)
-    @GetMapping("/{policyId}") // working
-    public ResponseEntity<Policy> getPolicyDetails(@PathVariable Long policyId) {
-        Policy policy = catalogueService.getPolicyDetails(policyId);
-        return new ResponseEntity<>(policy, HttpStatus.OK);
-    }
+    
+   
 
-    // Admin: Add a new policy to the catalogue
-    @PostMapping("/add") // working
-    public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
-        Policy newPolicy = catalogueService.addPolicy(policy);
-        return new ResponseEntity<>(newPolicy, HttpStatus.CREATED);
-    }
-
-    // Admin: Remove an outdated or irrelevant policy
-    @DeleteMapping("/remove/{policyId}") // working
-    public ResponseEntity<Void> removePolicy(@PathVariable Long policyId) {
-        catalogueService.removePolicy(policyId);
-        return ResponseEntity.noContent().build();
-    }
+    
 }
