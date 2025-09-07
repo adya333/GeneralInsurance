@@ -68,14 +68,14 @@ public class CatalogueController {
     
 
     // Admin: Filter and search policies based on type, coverage, price, etc.
-    @GetMapping("/filter") // Working
-    public ResponseEntity<List<Policy>> filterPolicies(
-        @RequestParam(required = false) String policyType,
-        @RequestParam(required = false) Double maxPrice
-    ) {
-        List<Policy> policies = catalogueService.filterPolicies(policyType, maxPrice);
-        return new ResponseEntity<>(policies, HttpStatus.OK);
-    }
+//    @GetMapping("/filter") // Working
+//    public ResponseEntity<List<Policy>> filterPolicies(
+//        @RequestParam(required = false) String policyType,
+//        @RequestParam(required = false) Double maxPrice
+//    ) {
+//        List<Policy> policies = catalogueService.filterPolicies(policyType, maxPrice);
+//        return new ResponseEntity<>(policies, HttpStatus.OK);
+//    }
 
     
    

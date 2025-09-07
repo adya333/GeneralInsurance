@@ -26,7 +26,10 @@ public class PolicyService {
         policy.setDescription(policyDTO.getDescription());
         return policyRepository.save(policy);
     }
-
+    public Long getPolicyCount()
+    {
+    	return policyRepository.policyCount();
+    }
     // Admin can do this only
     public Policy updatePolicy(Long policyId, Policy policyDTO) {
         Optional<Policy> policyOptional = policyRepository.findById(policyId);

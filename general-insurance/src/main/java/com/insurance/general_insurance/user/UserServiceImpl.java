@@ -48,5 +48,8 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(newUser);
     }
+    public Long getCustomerCount() {
+    	return userRepository.customerCount();
+    }
 }
 

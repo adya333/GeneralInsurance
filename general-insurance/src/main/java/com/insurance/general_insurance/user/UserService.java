@@ -13,4 +13,5 @@ public interface UserService {
      * @throws Exception if a user with the same email already exists.
      */
     User registerUser(UserRegistrationRequest request) throws Exception;
+    public Long getCustomerCount();
 }

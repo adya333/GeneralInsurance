@@ -8,7 +8,7 @@ import com.insurance.general_insurance.user.*;
 public class Policy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
     
     private String policyName;
     private String policyType;
@@ -27,7 +27,14 @@ public class Policy {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    
+    public Long getId()
+    {
+    	return id;
+    }
+    public void setId(Long id)
+    {
+    	this.id=id;
+    }
 	public String getPolicyName() {
 		return policyName;
 	}
