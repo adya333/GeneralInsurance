@@ -48,7 +48,6 @@ public class CatalogueViewController {
 	public String addPolicy(@ModelAttribute Policy policy, RedirectAttributes redirectAttributes) {
 	    Policy newPolicy = catalogueService.addPolicy(policy);
 
-	    // optional: show success message
 	    
 	    redirectAttributes.addFlashAttribute("successMessage",
 	        "Policy '" + newPolicy.getPolicyName() + "' added successfully!");
@@ -70,7 +69,7 @@ public class CatalogueViewController {
 	public String showEditForm(@PathVariable Long policyId, Model model) {
 	    Policy policy = policyService.getPolicyDetails(policyId);
 	    model.addAttribute("policy", policy);
-	    return "edit-policy"; // thymeleaf template
+	    return "edit-policy"; 
 	}
 	@PostMapping("/edit/{policyId}")
 	public String updatePolicy(@PathVariable Long policyId,@ModelAttribute("policy") Policy policy) {
@@ -84,7 +83,7 @@ public class CatalogueViewController {
 	public String viewPolicyDetails(@PathVariable Long policyId, Model model) {
 	    Policy policy = catalogueService.getPolicyDetails(policyId);
 	    model.addAttribute("policy", policy);
-	    return "view-policy"; // this should match the Thymeleaf template name (policy-view.html)
+	    return "view-policy"; // this should match the Thymeleaf template name
 	}
 
 	// Filtering
@@ -100,7 +99,7 @@ public class CatalogueViewController {
 	    model.addAttribute("maxPremium", null);
 	    model.addAttribute("startDate", null);
 
-	    // Empty list initially, before any filtering
+	    // wmpty list initially before filtering
 	    model.addAttribute("policies", List.of());
 
 	    return "filter-policy";
@@ -120,7 +119,7 @@ public class CatalogueViewController {
 	    List<Policy> policies = catalogueService.filterPolicies(policyType, minCoverage, maxCoverage, minPremium, maxPremium, id, policyName, startDate      
 	    );
 
-	    // Add filters back to the model so form retains values
+	  
 	    model.addAttribute("id", id);
 	    model.addAttribute("policyName", policyName);
 	    model.addAttribute("policyType", policyType);
@@ -133,7 +132,7 @@ public class CatalogueViewController {
 	    // Add results
 	    model.addAttribute("policies", policies);
 
-	    return "filter-policy"; // Thymeleaf template
+	    return "filter-policy"; 
 	}
 
 	
